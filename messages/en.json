@@ -70,6 +70,33 @@
       "retry": "Retry"
     }
   },
+  "devices": {
+    "title": "Devices",
+    "subtitle": "{count, plural, =0 {No devices} one {# device monitored} other {# devices monitored}}.",
+    "searchPlaceholder": "Search by name…",
+    "noMatches": "No devices match.",
+    "never": "Never",
+    "kevBadge": "KEV",
+    "table": {
+      "device": "Device",
+      "os": "OS",
+      "arch": "Arch",
+      "agent": "Agent",
+      "lastSeen": "Seen",
+      "open": "Open",
+      "crit": "Crit",
+      "kev": "KEV"
+    },
+    "empty": {
+      "title": "You haven't installed the agent yet",
+      "description": "Download the agent, install it on a Windows machine, and it'll show up here as soon as the first scan completes.",
+      "cta": "Download agent"
+    },
+    "detail": {
+      "title": "Device detail",
+      "placeholder": "Detail view under construction. For now, just shows the ID."
+    }
+  },
   "login": {
     "title": "Sign in to your account",
     "subtitle": "Enter your credentials to access the panel.",

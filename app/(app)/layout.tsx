@@ -1,32 +1,11 @@
 import { redirect } from "next/navigation";
-import Link from "next/link";
-import {
-  ShieldCheck,
-  Home,
-  Monitor,
-  AlertTriangle,
-  FileText,
-  LogOut,
-} from "lucide-react";
+import { ShieldCheck, LogOut } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
-import { cn } from "@/lib/utils";
 import { signOut } from "./actions";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
-
-type NavItem = {
-  labelKey: "dashboard" | "devices" | "alerts" | "nis2Report";
-  href: string | null;
-  icon: typeof Home;
-  active?: boolean;
-};
-
-const navItems: NavItem[] = [
-  { labelKey: "dashboard", href: "/dashboard", icon: Home, active: true },
-  { labelKey: "devices", href: null, icon: Monitor },
-  { labelKey: "alerts", href: null, icon: AlertTriangle },
-  { labelKey: "nis2Report", href: null, icon: FileText },
-];
+import { SidebarNav } from "./SidebarNav";
+import { TopbarBreadcrumb } from "./TopbarBreadcrumb";
 
 export default async function AppLayout({
   children,
@@ -44,7 +23,6 @@ export default async function AppLayout({
 
   const tNav = await getTranslations("nav");
   const tCommon = await getTranslations("common");
-  const tHeader = await getTranslations("header");
 
   const email = user.email ?? "";
   const initial = email.charAt(0).toUpperCase() || "?";
@@ -62,49 +40,7 @@ export default async function AppLayout({
           </span>
         </div>
 
-        <nav className="flex-1 p-3 space-y-0.5">
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            const isDisabled = item.href === null;
-            const label = tNav(item.labelKey);
-
-            const baseClasses =
-              "flex items-center gap-2.5 px-3 py-2 rounded-md text-sm transition-colors";
-
-            if (isDisabled) {
-              return (
-                <div
-                  key={item.labelKey}
-                  className={cn(
-                    baseClasses,
-                    "text-text-subtle cursor-not-allowed",
-                  )}
-                  aria-disabled="true"
-                  title={tCommon("comingSoon")}
-                >
-                  <Icon className="h-4 w-4" strokeWidth={1.75} />
-                  <span>{label}</span>
-                </div>
-              );
-            }
-
-            return (
-              <Link
-                key={item.labelKey}
-                href={item.href as "/dashboard"}
-                className={cn(
-                  baseClasses,
-                  item.active
-                    ? "bg-surface-muted text-text font-medium"
-                    : "text-text-muted hover:bg-surface-muted hover:text-text",
-                )}
-              >
-                <Icon className="h-4 w-4" strokeWidth={1.75} />
-                <span>{label}</span>
-              </Link>
-            );
-          })}
-        </nav>
+        <SidebarNav />
 
         <div className="p-3 border-t border-border text-xs text-text-subtle">
           v0.1.0 · MVP
@@ -113,7 +49,7 @@ export default async function AppLayout({
 
       <div className="flex-1 flex flex-col min-w-0">
         <header className="h-14 shrink-0 border-b border-border bg-surface px-6 flex items-center justify-between">
-          <div className="text-sm text-text-muted">{tHeader("current")}</div>
+          <TopbarBreadcrumb />
           <div className="flex items-center gap-4">
             <LocaleSwitcher />
             <div className="flex items-center gap-2.5">

@@ -70,6 +70,33 @@
       "retry": "Reintentar"
     }
   },
+  "devices": {
+    "title": "Equipos",
+    "subtitle": "{count, plural, =0 {Sin equipos} one {# equipo monitorizado} other {# equipos monitorizados}}.",
+    "searchPlaceholder": "Buscar por nombre…",
+    "noMatches": "Ningún equipo coincide.",
+    "never": "Nunca",
+    "kevBadge": "KEV",
+    "table": {
+      "device": "Equipo",
+      "os": "OS",
+      "arch": "Arch",
+      "agent": "Agente",
+      "lastSeen": "Visto",
+      "open": "Abiertas",
+      "crit": "Crít",
+      "kev": "KEV"
+    },
+    "empty": {
+      "title": "Aún no has instalado el agente",
+      "description": "Descarga el agente, instálalo en un equipo Windows y aparecerá aquí en cuanto se complete el primer scan.",
+      "cta": "Descargar agente"
+    },
+    "detail": {
+      "title": "Detalle del equipo",
+      "placeholder": "Vista detallada en construcción. Por ahora solo muestra el ID."
+    }
+  },
   "login": {
     "title": "Acceder a tu cuenta",
     "subtitle": "Introduce tus credenciales para entrar al panel.",
