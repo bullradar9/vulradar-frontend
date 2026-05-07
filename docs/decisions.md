@@ -260,6 +260,22 @@
 6. UI de "Settings → Miembros" (invitar email a un tenant existente).
 *Cuándo reconsiderar*: primer piloto que pida multi-usuario, O antes de abrir registro público (porque el modelo "1 user = 1 tenant" hace muy difícil añadir multi-usuario sin migración disruptiva una vez hay clientes de pago).
 
+### [D022-20260507] Multi-idioma del producto: EN default + ES desde día 1
+
+*Estado*: vigente. Supera **DP003**.
+*Contexto*: DP003 dejaba abierto si arrancar el producto solo en español o ya con inglés. Al scaffoldear el reemplazo del frontend Lovable (Next.js 15) se integró i18n en la primera versión.
+*Decisión*: el frontend nuevo soporta `en` y `es`. **Default = `en`** (cookie `NEXT_LOCALE`). Selector visible en la pantalla de login y en el header de la app. La documentación interna (`docs/`) y el copy del agente siguen en español.
+*Razones*:
+1. NIS2 es regulación europea — el mercado natural va más allá de España.
+2. Coste marginal de i18n al scaffoldear es bajo (`next-intl` + dos catálogos JSON); retrofitear más adelante con copy ya escrito en ES sería más costoso.
+3. EN como default no perjudica al cliente español: el switcher persiste en cookie y el copy ES es first-class, no traducción mecánica.
+4. Permite enseñar la URL a prospects no españoles (PT, IT, DE) sin re-trabajo.
+*Consecuencias*:
+- Cada copy nuevo debe añadirse a `messages/en.json` y `messages/es.json`. Falta de paridad la detecta TypeScript (`next-intl` la tipa) — no se acepta merge sin las dos claves.
+- Errores de server actions se traducen vía `getTranslations()` server-side.
+- Mientras Lovable siga vivo, ese frontend queda solo en español — no se sincroniza con los catálogos.
+*Cuándo reconsiderar*: si el primer piloto serio exige un tercer idioma (p.ej. PT), basta con añadirlo al array `locales` y crear `messages/pt.json`.
+
 ---
 
 ## Decisiones pendientes de tomar
@@ -277,11 +293,6 @@
 *Trade-offs*:
 - Opcional: onboarding más fácil, menor barrera de entrada, menos precisión.
 - Obligatorio: producto más fiel a Qualys, mayor barrera de entrada, mejor precisión.
-
-### [DP003] Idioma del producto
-
-*Pregunta abierta*: ¿solo español de momento, o desde el día 1 también inglés?
-*Recomendación inicial*: solo español hasta tener 10 clientes españoles pagando.
 
 ### [DP004] Cuándo migrar el frontend de Lovable
 

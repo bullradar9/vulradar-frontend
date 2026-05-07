@@ -4,9 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Lo primero que tienes que saber
 
-**Esta carpeta no contiene aún el código del frontend.** Solo hay `docs/` (fuente de verdad documental del proyecto entero) y un `.mcp.json` para Supabase. No existe `package.json`, stack ni scripts de build/test/lint todavía. Si vas a añadir comandos a este archivo, hazlo solo cuando el stack esté scaffoldeado.
+Este repo contiene **dos cosas**:
 
-El frontend que está hoy en producción **no vive aquí**: está construido en **Lovable** (plataforma low-code) y se conecta directamente a Supabase. Esta carpeta es donde se montará el reemplazo cuando se dispare la migración (ver `docs/tech/frontends.md` y `docs/decisions.md`).
+1. **`docs/`** — fuente de verdad documental del proyecto entero (no solo del frontend).
+2. **El scaffold del reemplazo del frontend Lovable**, en Next.js 15 + Supabase. Aún no desplegado.
+
+El frontend que está hoy en producción **no vive aquí**: está construido en **Lovable** (plataforma low-code) y se conecta directamente a Supabase. Cuando este reemplazo cubra las features, se sustituye Lovable. Detalle en `docs/tech/frontends.md` y `docs/decisions.md`.
 
 ## Qué es VulnRadar EU
 
@@ -51,14 +54,40 @@ No existe entorno local de Supabase montado en esta carpeta. Si se monta, docume
 
 ## Convenciones de comunicación
 
-El usuario escribe y prefiere respuestas en **español**. La documentación del proyecto está en español.
+El usuario escribe y prefiere respuestas en **español**. La documentación del proyecto está en español. El **producto (UI)** soporta inglés (default) y español — ver D022.
 
-## Cuando se scaffoldee el frontend
+## Stack actual del scaffold
 
-Actualizar este archivo con:
+- **Framework**: Next.js 15 (App Router, RSC) + React 19.
+- **Package manager**: npm. Node ≥ 20.
+- **Lenguaje**: TypeScript strict.
+- **UI**: Tailwind 3.4 + tokens propios (`bg-bg`, `text-text`, severidad), `lucide-react`, IBM Plex.
+- **Datos**: Supabase Auth + RLS vía `@supabase/ssr` (`lib/supabase/{client,server,middleware}.ts`). Cliente Supabase **siempre** desde estos helpers — nunca importar `@supabase/supabase-js` directo.
+- **Tenancy actual**: `tenant_id = auth.uid()` en todas las RLS (D021). No hay tabla `user_profiles` ni custom JWT hook todavía.
+- **i18n**: `next-intl` v4 sin routing por URL.
+  - `i18n/config.ts` — `locales`, `defaultLocale = "en"`, `LOCALE_COOKIE = "NEXT_LOCALE"`, `isLocale()`. Importable desde client y server.
+  - `i18n/request.ts` — `getRequestConfig` server-only. **No** importarlo desde componentes cliente.
+  - `messages/{en,es}.json` — catálogos. Cualquier copy nuevo debe estar en **ambos** (D022). En server: `getTranslations()`. En client: `useTranslations()`.
+  - `app/actions/locale.ts` — server action `setLocale(next)` que escribe cookie y revalida.
+  - `components/LocaleSwitcher.tsx` — selector cliente.
+  - Errores de server actions: traducir con `getTranslations("...errors")`, no devolver strings hardcoded.
 
-- Stack elegido (framework, package manager, runtime).
-- Comandos reales de `dev`, `build`, `test` (incluido cómo correr un solo test), `lint`, `typecheck`.
-- Cómo se inyecta `tenant_id` en el JWT y dónde vive el cliente Supabase compartido.
-- Cómo se sirven los binarios del agente (`agent.exe`) y se generan los `config.yaml` por tenant.
-- Variables de entorno requeridas y de dónde sacarlas (Supabase URL, anon key, etc.).
+## Comandos
+
+| Comando | Para qué |
+|---|---|
+| `npm run dev` | Servidor de desarrollo Next. |
+| `npm run build` | Build de producción. Falla si falta una clave de traducción tipada. |
+| `npm run typecheck` | `tsc --noEmit`. |
+| `npm run lint` | `next lint`. |
+
+## Variables de entorno
+
+`.env.local` (copiar de `.env.example`):
+- `NEXT_PUBLIC_SUPABASE_URL` — URL del proyecto Supabase EU (`aqsdyoonbvofolugtxyz`).
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` — anon key. **Nunca** `service_role` en el frontend.
+
+## Pendiente (no implementado todavía)
+
+- Distribución del agente: descarga de `agent.exe` y generación de `config.yaml` con `tenant_id` rellenado.
+- Migración a modelo JWT claim cuando se requiera multi-usuario (plan en D021).

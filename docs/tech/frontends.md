@@ -57,6 +57,17 @@ Cuando llegue el momento de migrar fuera de Lovable, stack probable:
 - Limitación bloqueante (rendimiento, seguridad, due diligence técnica de un cliente).
 - Cliente importante exige una URL en dominio propio con auth profesional.
 
+### Estado del reemplazo (2026-05-07)
+
+El reemplazo de Lovable está **scaffoldeado** en este repo (`frontend/`), aún sin desplegar:
+
+- **Next.js 15** + React 19, App Router, Server Components.
+- **Auth**: Supabase Auth con cliente SSR (`@supabase/ssr`). Modelo de tenancy = `tenant_id = auth.uid()` (ver [D021](../decisions.md#d021-20260507-modelo-de-tenancy-mvp-tenant_id--authuid)).
+- **i18n**: `next-intl` con `en` (default) y `es`, persistencia en cookie `NEXT_LOCALE`. Selector en login y header. Ver [D022](../decisions.md#d022-20260507-multi-idioma-del-producto-en-default--es-desde-día-1).
+- **UI**: Tailwind + tokens propios (`bg-bg`, `text-text`, severidad), iconografía `lucide-react`, fuentes IBM Plex.
+
+Lovable y este scaffold conviven hasta que el reemplazo cubra todas las features. Lovable sigue siendo el frontend en uso para clientes.
+
 ---
 
 ## Filosofía

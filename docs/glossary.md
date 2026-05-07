@@ -124,6 +124,12 @@ Función de PostgreSQL/Supabase que filtra automáticamente las filas que un usu
 **Lovable**
 Plataforma de generación de aplicaciones web con IA. Usada para construir los frontends actuales.
 
+**i18n** (*Internationalization*)
+Soporte multi-idioma del producto. El frontend nuevo (Next.js) soporta inglés (default) y español, gestionados con `next-intl` y persistencia en cookie `NEXT_LOCALE`.
+
+**Locale**
+Identificador del idioma activo (`en`, `es`). Determina qué catálogo de traducción se carga y el atributo `<html lang>` del documento.
+
 ---
 
 ## Términos de negocio
