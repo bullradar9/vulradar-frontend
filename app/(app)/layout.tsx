@@ -6,9 +6,11 @@ import {
   Monitor,
   AlertTriangle,
   FileText,
+  LogOut,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { cn } from "@/lib/utils";
+import { signOut } from "./actions";
 
 type NavItem = {
   label: string;
@@ -102,13 +104,25 @@ export default async function AppLayout({
       <div className="flex-1 flex flex-col min-w-0">
         <header className="h-14 shrink-0 border-b border-border bg-surface px-6 flex items-center justify-between">
           <div className="text-sm text-text-muted">Dashboard</div>
-          <div className="flex items-center gap-2.5">
-            <div className="h-7 w-7 rounded-full bg-brand text-brand-fg flex items-center justify-center text-xs font-medium">
-              {initial}
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
+              <div className="h-7 w-7 rounded-full bg-brand text-brand-fg flex items-center justify-center text-xs font-medium">
+                {initial}
+              </div>
+              <span className="text-sm text-text-muted hidden sm:inline">
+                {email}
+              </span>
             </div>
-            <span className="text-sm text-text-muted hidden sm:inline">
-              {email}
-            </span>
+            <form action={signOut}>
+              <button
+                type="submit"
+                title="Cerrar sesión"
+                aria-label="Cerrar sesión"
+                className="p-1.5 rounded-md text-text-muted hover:text-text hover:bg-surface-muted transition-colors"
+              >
+                <LogOut className="h-4 w-4" strokeWidth={1.75} />
+              </button>
+            </form>
           </div>
         </header>
 

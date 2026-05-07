@@ -1,4 +1,5 @@
 import { ShieldCheck } from "lucide-react";
+import { LoginForm } from "./LoginForm";
 
 export default function LoginPage() {
   return (
@@ -17,48 +18,7 @@ export default function LoginPage() {
             Introduce tus credenciales para entrar al panel.
           </p>
 
-          <form className="space-y-4">
-            <div className="space-y-1.5">
-              <label
-                htmlFor="email"
-                className="text-sm font-medium text-text"
-              >
-                Correo electrónico
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                placeholder="tu@empresa.com"
-                className="w-full rounded-md border border-border bg-surface px-3 py-2 text-sm placeholder:text-text-subtle focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand"
-              />
-            </div>
-
-            <div className="space-y-1.5">
-              <label
-                htmlFor="password"
-                className="text-sm font-medium text-text"
-              >
-                Contraseña
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                className="w-full rounded-md border border-border bg-surface px-3 py-2 text-sm placeholder:text-text-subtle focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand"
-              />
-            </div>
-
-            <button
-              type="button"
-              disabled
-              className="w-full rounded-md bg-brand text-brand-fg px-3 py-2 text-sm font-medium hover:bg-brand-hover transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
-            >
-              Entrar
-            </button>
-          </form>
+          <LoginForm />
 
           <p className="mt-6 text-xs text-text-subtle text-center">
             ¿No tienes cuenta?{" "}
