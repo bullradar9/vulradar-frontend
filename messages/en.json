@@ -19,8 +19,56 @@
   },
   "dashboard": {
     "title": "Dashboard",
-    "intro": "Here you'll see the state of your devices, prioritized alerts, and the NIS2 report. Coming soon.",
-    "preview": "This is a preview. The next step is to wire up the actual list of alerts and devices."
+    "subtitle": "Status of your inventory and active alerts.",
+    "kpi": {
+      "alertsOpenLabel": "Open",
+      "alertsOpenSub": "alerts",
+      "criticalLabel": "Critical",
+      "criticalSub": "CVSS critical",
+      "kevLabel": "KEV",
+      "kevSub": "exploited",
+      "devicesLabel": "Devices",
+      "devicesSub": "active"
+    },
+    "pillars": {
+      "sectionTitle": "By type",
+      "cveTitle": "CVE",
+      "eolTitle": "EOL",
+      "eolDescription": "Vendor support ended",
+      "outdatedTitle": "OUTDATED",
+      "outdatedDescription": "Behind latest version"
+    },
+    "severity": {
+      "critical": "Critical",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "devicesPanel": {
+      "title": "Recent devices",
+      "headerDevice": "Device",
+      "headerOs": "OS",
+      "headerLastSeen": "Seen",
+      "headerAlerts": "Alerts",
+      "never": "Never"
+    },
+    "alertsPanel": {
+      "title": "Top alerts",
+      "kevBadge": "KEV",
+      "eolNoSupport": "No support"
+    },
+    "empty": {
+      "noDevicesTitle": "You haven't installed the agent yet",
+      "noDevicesDescription": "Download the agent, install it on a Windows machine, and you'll see alerts here as soon as the first scan completes (~2 min).",
+      "noDevicesCta": "Download agent",
+      "noAlertsTitle": "No open alerts",
+      "noAlertsDescription": "This could mean your device is up to date, or that the first scan hasn't completed yet."
+    },
+    "error": {
+      "title": "Couldn't load the dashboard",
+      "description": "There was a temporary issue loading your data. Try again in a few seconds.",
+      "retry": "Retry"
+    }
   },
   "login": {
     "title": "Sign in to your account",

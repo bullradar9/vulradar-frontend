@@ -176,6 +176,7 @@ Tareas a definir entonces, no antes.
 | Migraciones aplicadas a Supabase sin nombre (sólo timestamp `20260503203201` y `20260503204634`) | Baja | Próximo cambio de schema — añadir `name` para trazabilidad |
 | `device_inventory` vacía pese a 1 scan `completed` y 79 alertas — investigar si bug del processor o seed parcial | Media | Antes del primer piloto (las alertas dependen del inventario para auditoría) |
 | Verificar si el frontend Lovable usa `anon key` o `publishable key` (nomenclatura nueva Supabase) y unificar terminología en docs | Baja | Al hacer setup del nuevo frontend |
+| Dashboard del frontend lanza ~13 queries paralelas a Supabase (`Promise.all`) en lugar de leer 2 vistas SQL agregadas. Las vistas (`dashboard_stats` + `device_dashboard`) están especificadas pero deben vivir en `scan-processor/supabase/schema.sql` (ver D022). | Baja | Cuando la latencia del dashboard sea un problema real (objetivo: <500ms con datos de un cliente real) |
 
 ---
 

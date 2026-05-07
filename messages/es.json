@@ -19,8 +19,56 @@
   },
   "dashboard": {
     "title": "Dashboard",
-    "intro": "Aquí verás el estado de tus equipos, alertas priorizadas y el informe NIS2. Próximamente.",
-    "preview": "Esta es una vista preliminar. El siguiente paso es conectar el listado real de alertas y equipos."
+    "subtitle": "Estado de tu inventario y alertas activas.",
+    "kpi": {
+      "alertsOpenLabel": "Abiertas",
+      "alertsOpenSub": "alertas",
+      "criticalLabel": "Críticas",
+      "criticalSub": "CVSS crítico",
+      "kevLabel": "KEV",
+      "kevSub": "explotadas",
+      "devicesLabel": "Equipos",
+      "devicesSub": "activos"
+    },
+    "pillars": {
+      "sectionTitle": "Por tipo",
+      "cveTitle": "CVE",
+      "eolTitle": "EOL",
+      "eolDescription": "Sin soporte del fabricante",
+      "outdatedTitle": "OUTDATED",
+      "outdatedDescription": "Versiones obsoletas"
+    },
+    "severity": {
+      "critical": "Crítica",
+      "high": "Alta",
+      "medium": "Media",
+      "low": "Baja"
+    },
+    "devicesPanel": {
+      "title": "Equipos recientes",
+      "headerDevice": "Equipo",
+      "headerOs": "OS",
+      "headerLastSeen": "Visto",
+      "headerAlerts": "Alertas",
+      "never": "Nunca"
+    },
+    "alertsPanel": {
+      "title": "Alertas prioritarias",
+      "kevBadge": "KEV",
+      "eolNoSupport": "Sin soporte"
+    },
+    "empty": {
+      "noDevicesTitle": "Aún no has instalado el agente",
+      "noDevicesDescription": "Descarga el agente, instálalo en un equipo Windows y verás aquí las alertas en cuanto se complete el primer scan (~2 min).",
+      "noDevicesCta": "Descargar agente",
+      "noAlertsTitle": "Sin alertas abiertas",
+      "noAlertsDescription": "Esto puede significar que tu equipo está actualizado o que el primer scan aún no se ha completado."
+    },
+    "error": {
+      "title": "No se pudo cargar el dashboard",
+      "description": "Ha habido un problema temporal cargando tus datos. Inténtalo de nuevo en unos segundos.",
+      "retry": "Reintentar"
+    }
   },
   "login": {
     "title": "Acceder a tu cuenta",
