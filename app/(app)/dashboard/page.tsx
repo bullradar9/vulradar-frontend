@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { ShieldCheck, Inbox } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 
 import { createClient } from "@/lib/supabase/server";
 import {
@@ -49,6 +49,7 @@ type DeviceWithAlertCount = TopDevice & { open_alert_count: number };
 export default async function DashboardPage() {
   const t = await getTranslations("dashboard");
   const tCommon = await getTranslations("common");
+  const locale = await getLocale();
   const supabase = await createClient();
 
   // Promise.all paraliza las 13 queries — no hay cascada.
@@ -113,22 +114,26 @@ export default async function DashboardPage() {
           label={t("kpi.alertsOpenLabel")}
           value={alertsOpen}
           sublabel={t("kpi.alertsOpenSub")}
+          locale={locale}
         />
         <Stat
           label={t("kpi.criticalLabel")}
           value={criticalOpen}
           sublabel={t("kpi.criticalSub")}
+          locale={locale}
         />
         <Stat
           label={t("kpi.kevLabel")}
           value={kevOpen}
           sublabel={t("kpi.kevSub")}
           emphasis="critical"
+          locale={locale}
         />
         <Stat
           label={t("kpi.devicesLabel")}
           value={deviceCount}
           sublabel={t("kpi.devicesSub")}
+          locale={locale}
         />
       </section>
 
@@ -148,6 +153,7 @@ export default async function DashboardPage() {
             <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr_1fr] gap-4">
               <CvePillar
                 t={t}
+                locale={locale}
                 total={cveOpen}
                 critical={cveCritical}
                 high={cveHigh}
@@ -158,18 +164,20 @@ export default async function DashboardPage() {
                 title={t("pillars.eolTitle")}
                 count={eolOpen}
                 description={t("pillars.eolDescription")}
+                locale={locale}
               />
               <SimplePillar
                 title={t("pillars.outdatedTitle")}
                 count={outdatedOpen}
                 description={t("pillars.outdatedDescription")}
+                locale={locale}
               />
             </div>
           </section>
 
           <section className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <DevicesPanel devices={devicesWithCount} t={t} />
-            <AlertsPanel alerts={topAlerts} t={t} />
+            <DevicesPanel devices={devicesWithCount} t={t} locale={locale} />
+            <AlertsPanel alerts={topAlerts} t={t} locale={locale} />
           </section>
         </>
       )}
@@ -183,6 +191,7 @@ export default async function DashboardPage() {
 
 function CvePillar({
   t,
+  locale,
   total,
   critical,
   high,
@@ -190,6 +199,7 @@ function CvePillar({
   low,
 }: {
   t: DashboardT;
+  locale: string;
   total: number;
   critical: number;
   high: number;
@@ -208,7 +218,7 @@ function CvePillar({
       <CardHeader>
         <CardTitle>{t("pillars.cveTitle")}</CardTitle>
         <span className="font-mono text-xl font-medium tabular-nums">
-          {formatNumber(total)}
+          {formatNumber(total, locale)}
         </span>
       </CardHeader>
       <CardBody>
@@ -225,7 +235,7 @@ function CvePillar({
                 </span>
               </div>
               <span className="font-mono text-sm tabular-nums text-text-muted">
-                {formatNumber(count)}
+                {formatNumber(count, locale)}
               </span>
             </div>
           ))}
@@ -239,17 +249,19 @@ function SimplePillar({
   title,
   count,
   description,
+  locale,
 }: {
   title: string;
   count: number;
   description: string;
+  locale: string;
 }) {
   return (
     <Card>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <span className="font-mono text-xl font-medium tabular-nums">
-          {formatNumber(count)}
+          {formatNumber(count, locale)}
         </span>
       </CardHeader>
       <CardBody>
@@ -266,9 +278,11 @@ function SimplePillar({
 function DevicesPanel({
   devices,
   t,
+  locale,
 }: {
   devices: DeviceWithAlertCount[];
   t: DashboardT;
+  locale: string;
 }) {
   return (
     <Card>
@@ -291,11 +305,11 @@ function DevicesPanel({
               <Td className="text-text-muted">{d.os}</Td>
               <Td className="text-text-muted">
                 {d.last_scanned
-                  ? formatRelativeTime(d.last_scanned)
+                  ? formatRelativeTime(d.last_scanned, locale)
                   : t("devicesPanel.never")}
               </Td>
               <Td className="text-right font-mono tabular-nums">
-                {formatNumber(d.open_alert_count)}
+                {formatNumber(d.open_alert_count, locale)}
               </Td>
             </Tr>
           ))}
@@ -312,9 +326,11 @@ function DevicesPanel({
 function AlertsPanel({
   alerts,
   t,
+  locale: _locale,
 }: {
   alerts: TopAlert[];
   t: DashboardT;
+  locale: string;
 }) {
   return (
     <Card>

@@ -6,6 +6,7 @@ type StatProps = {
   value: number | string;
   sublabel?: string;
   emphasis?: "default" | "critical";
+  locale?: string;
 };
 
 export function Stat({
@@ -13,8 +14,10 @@ export function Stat({
   value,
   sublabel,
   emphasis = "default",
+  locale = "en",
 }: StatProps) {
-  const display = typeof value === "number" ? formatNumber(value) : value;
+  const display =
+    typeof value === "number" ? formatNumber(value, locale) : value;
 
   return (
     <div className="rounded-lg border border-border bg-surface p-5">
