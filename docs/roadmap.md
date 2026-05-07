@@ -173,6 +173,9 @@ Tareas a definir entonces, no antes.
 | Stubs darwin/linux no implementados | Baja | Cuando un piloto lo pida |
 | Repo del agente solo en local | Media | Antes del primer piloto |
 | Schema SQL aplicado a mano | Baja | Cuando haya >3 cambios pendientes |
+| Migraciones aplicadas a Supabase sin nombre (sólo timestamp `20260503203201` y `20260503204634`) | Baja | Próximo cambio de schema — añadir `name` para trazabilidad |
+| `device_inventory` vacía pese a 1 scan `completed` y 79 alertas — investigar si bug del processor o seed parcial | Media | Antes del primer piloto (las alertas dependen del inventario para auditoría) |
+| Verificar si el frontend Lovable usa `anon key` o `publishable key` (nomenclatura nueva Supabase) y unificar terminología en docs | Baja | Al hacer setup del nuevo frontend |
 
 ---
 

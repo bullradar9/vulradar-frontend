@@ -173,13 +173,15 @@ CREATE TABLE cisa_kev (
 
 ## Multi-tenancy y Row Level Security
 
-La multi-tenancy se implementa en 3 capas, con RLS como última línea de defensa:
+> **Modelo MVP (estado actual, 2026-05): `tenant_id = auth.uid()`.** Cada usuario de `auth.users` es su propio tenant. No hay tabla `user_profiles` ni custom JWT hook. Esto es deuda técnica consciente documentada en [D021](../decisions.md#d021-20260507-modelo-de-tenancy-mvp-tenant_id--authuid). El modelo objetivo sigue siendo JWT claim (D015), pero su implementación se difiere hasta que un piloto pida multi-usuario.
 
-1. **Datos**: cada tabla tenant-aware tiene `tenant_id`. Foreign keys en cascada para borrado.
+La multi-tenancy se implementa en 3 capas:
+
+1. **Datos**: cada tabla tenant-aware tiene `tenant_id` (UUID). Foreign keys en cascada para borrado.
 2. **API**: el processor recibe `tenant_id` del agente. Sin verificación criptográfica todavía (deuda técnica).
-3. **BD**: Row Level Security filtra automáticamente por `tenant_id` del JWT del usuario logueado.
+3. **BD**: Row Level Security filtra automáticamente. La política compara `tenant_id` con el `auth.uid()` del usuario logueado.
 
-### Políticas RLS
+### Políticas RLS reales
 
 ```sql
 ALTER TABLE devices ENABLE ROW LEVEL SECURITY;
@@ -187,12 +189,14 @@ ALTER TABLE scans ENABLE ROW LEVEL SECURITY;
 ALTER TABLE device_inventory ENABLE ROW LEVEL SECURITY;
 ALTER TABLE client_alerts ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "tenant_isolation_alerts" ON client_alerts
-  FOR ALL USING (tenant_id::text = auth.jwt() ->> 'tenant_id');
--- Y políticas equivalentes para devices, scans, device_inventory
+CREATE POLICY "user_tenant_alerts" ON client_alerts
+  FOR ALL TO authenticated
+  USING (tenant_id = auth.uid())
+  WITH CHECK (tenant_id = auth.uid());
+-- Y políticas equivalentes para devices, scans, device_inventory.
 ```
 
-Las **tablas globales** (`software_versions`, `cisa_kev`) tienen RLS habilitado pero con política de lectura para todos los autenticados.
+Las **tablas globales** (`software_versions`, `cisa_kev`) tienen RLS habilitado con política `SELECT` para el rol `public` (lectura universal, no requiere autenticación).
 
 ### Defensa contra hijacking de devices
 
