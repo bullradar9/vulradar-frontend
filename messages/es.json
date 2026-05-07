@@ -1,0 +1,47 @@
+{
+  "metadata": {
+    "title": "VulnRadar EU — Gestión de vulnerabilidades NIS2",
+    "description": "Plataforma europea de gestión de vulnerabilidades y cumplimiento NIS2 para PyMEs."
+  },
+  "common": {
+    "comingSoon": "Próximamente",
+    "brandSuffix": "EU"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "devices": "Equipos",
+    "alerts": "Alertas",
+    "nis2Report": "Informe NIS2",
+    "signOut": "Cerrar sesión"
+  },
+  "header": {
+    "current": "Dashboard"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "intro": "Aquí verás el estado de tus equipos, alertas priorizadas y el informe NIS2. Próximamente.",
+    "preview": "Esta es una vista preliminar. El siguiente paso es conectar el listado real de alertas y equipos."
+  },
+  "login": {
+    "title": "Acceder a tu cuenta",
+    "subtitle": "Introduce tus credenciales para entrar al panel.",
+    "email": "Correo electrónico",
+    "emailPlaceholder": "tu@empresa.com",
+    "password": "Contraseña",
+    "submit": "Entrar",
+    "submitting": "Entrando…",
+    "noAccount": "¿No tienes cuenta?",
+    "contactUs": "Contáctanos",
+    "footer": "Datos procesados en la UE · Frankfurt",
+    "errors": {
+      "missing": "Introduce correo y contraseña.",
+      "notConfirmed": "Tu correo aún no está confirmado.",
+      "invalid": "Credenciales incorrectas. Revisa el correo y la contraseña."
+    }
+  },
+  "locale": {
+    "label": "Idioma",
+    "en": "English",
+    "es": "Español"
+  }
+}

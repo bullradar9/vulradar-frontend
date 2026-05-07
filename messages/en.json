@@ -1,0 +1,47 @@
+{
+  "metadata": {
+    "title": "VulnRadar EU — NIS2 Vulnerability Management",
+    "description": "European platform for vulnerability management and NIS2 compliance for SMBs."
+  },
+  "common": {
+    "comingSoon": "Coming soon",
+    "brandSuffix": "EU"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "devices": "Devices",
+    "alerts": "Alerts",
+    "nis2Report": "NIS2 Report",
+    "signOut": "Sign out"
+  },
+  "header": {
+    "current": "Dashboard"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "intro": "Here you'll see the state of your devices, prioritized alerts, and the NIS2 report. Coming soon.",
+    "preview": "This is a preview. The next step is to wire up the actual list of alerts and devices."
+  },
+  "login": {
+    "title": "Sign in to your account",
+    "subtitle": "Enter your credentials to access the panel.",
+    "email": "Email",
+    "emailPlaceholder": "you@company.com",
+    "password": "Password",
+    "submit": "Sign in",
+    "submitting": "Signing in…",
+    "noAccount": "No account?",
+    "contactUs": "Contact us",
+    "footer": "Data processed in the EU · Frankfurt",
+    "errors": {
+      "missing": "Enter email and password.",
+      "notConfirmed": "Your email isn't confirmed yet.",
+      "invalid": "Incorrect credentials. Check your email and password."
+    }
+  },
+  "locale": {
+    "label": "Language",
+    "en": "English",
+    "es": "Español"
+  }
+}

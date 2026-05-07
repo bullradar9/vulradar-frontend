@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 
 export type LoginState = { error: string } | null;
@@ -9,11 +10,13 @@ export async function login(
   _prev: LoginState,
   formData: FormData,
 ): Promise<LoginState> {
+  const t = await getTranslations("login.errors");
+
   const email = String(formData.get("email") ?? "").trim();
   const password = String(formData.get("password") ?? "");
 
   if (!email || !password) {
-    return { error: "Introduce correo y contraseña." };
+    return { error: t("missing") };
   }
 
   const supabase = await createClient();
@@ -21,11 +24,9 @@ export async function login(
 
   if (error) {
     if (error.message.toLowerCase().includes("email not confirmed")) {
-      return { error: "Tu correo aún no está confirmado." };
+      return { error: t("notConfirmed") };
     }
-    return {
-      error: "Credenciales incorrectas. Revisa el correo y la contraseña.",
-    };
+    return { error: t("invalid") };
   }
 
   redirect("/dashboard");

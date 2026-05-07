@@ -8,22 +8,24 @@ import {
   FileText,
   LogOut,
 } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 import { cn } from "@/lib/utils";
 import { signOut } from "./actions";
+import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 
 type NavItem = {
-  label: string;
+  labelKey: "dashboard" | "devices" | "alerts" | "nis2Report";
   href: string | null;
   icon: typeof Home;
   active?: boolean;
 };
 
 const navItems: NavItem[] = [
-  { label: "Dashboard", href: "/dashboard", icon: Home, active: true },
-  { label: "Equipos", href: null, icon: Monitor },
-  { label: "Alertas", href: null, icon: AlertTriangle },
-  { label: "Informe NIS2", href: null, icon: FileText },
+  { labelKey: "dashboard", href: "/dashboard", icon: Home, active: true },
+  { labelKey: "devices", href: null, icon: Monitor },
+  { labelKey: "alerts", href: null, icon: AlertTriangle },
+  { labelKey: "nis2Report", href: null, icon: FileText },
 ];
 
 export default async function AppLayout({
@@ -40,6 +42,10 @@ export default async function AppLayout({
     redirect("/login");
   }
 
+  const tNav = await getTranslations("nav");
+  const tCommon = await getTranslations("common");
+  const tHeader = await getTranslations("header");
+
   const email = user.email ?? "";
   const initial = email.charAt(0).toUpperCase() || "?";
 
@@ -49,7 +55,10 @@ export default async function AppLayout({
         <div className="h-14 px-4 flex items-center gap-2 border-b border-border">
           <ShieldCheck className="h-5 w-5 text-brand" strokeWidth={1.75} />
           <span className="font-semibold tracking-tight">
-            VulnRadar <span className="text-text-muted font-normal">EU</span>
+            VulnRadar{" "}
+            <span className="text-text-muted font-normal">
+              {tCommon("brandSuffix")}
+            </span>
           </span>
         </div>
 
@@ -57,6 +66,7 @@ export default async function AppLayout({
           {navItems.map((item) => {
             const Icon = item.icon;
             const isDisabled = item.href === null;
+            const label = tNav(item.labelKey);
 
             const baseClasses =
               "flex items-center gap-2.5 px-3 py-2 rounded-md text-sm transition-colors";
@@ -64,23 +74,23 @@ export default async function AppLayout({
             if (isDisabled) {
               return (
                 <div
-                  key={item.label}
+                  key={item.labelKey}
                   className={cn(
                     baseClasses,
                     "text-text-subtle cursor-not-allowed",
                   )}
                   aria-disabled="true"
-                  title="Próximamente"
+                  title={tCommon("comingSoon")}
                 >
                   <Icon className="h-4 w-4" strokeWidth={1.75} />
-                  <span>{item.label}</span>
+                  <span>{label}</span>
                 </div>
               );
             }
 
             return (
               <Link
-                key={item.label}
+                key={item.labelKey}
                 href={item.href as "/dashboard"}
                 className={cn(
                   baseClasses,
@@ -90,7 +100,7 @@ export default async function AppLayout({
                 )}
               >
                 <Icon className="h-4 w-4" strokeWidth={1.75} />
-                <span>{item.label}</span>
+                <span>{label}</span>
               </Link>
             );
           })}
@@ -103,8 +113,9 @@ export default async function AppLayout({
 
       <div className="flex-1 flex flex-col min-w-0">
         <header className="h-14 shrink-0 border-b border-border bg-surface px-6 flex items-center justify-between">
-          <div className="text-sm text-text-muted">Dashboard</div>
-          <div className="flex items-center gap-3">
+          <div className="text-sm text-text-muted">{tHeader("current")}</div>
+          <div className="flex items-center gap-4">
+            <LocaleSwitcher />
             <div className="flex items-center gap-2.5">
               <div className="h-7 w-7 rounded-full bg-brand text-brand-fg flex items-center justify-center text-xs font-medium">
                 {initial}
@@ -116,8 +127,8 @@ export default async function AppLayout({
             <form action={signOut}>
               <button
                 type="submit"
-                title="Cerrar sesión"
-                aria-label="Cerrar sesión"
+                title={tNav("signOut")}
+                aria-label={tNav("signOut")}
                 className="p-1.5 rounded-md text-text-muted hover:text-text hover:bg-surface-muted transition-colors"
               >
                 <LogOut className="h-4 w-4" strokeWidth={1.75} />

@@ -1,9 +1,11 @@
 "use client";
 
 import { useActionState } from "react";
+import { useTranslations } from "next-intl";
 import { login, type LoginState } from "./actions";
 
 export function LoginForm() {
+  const t = useTranslations("login");
   const [state, formAction, isPending] = useActionState<LoginState, FormData>(
     login,
     null,
@@ -22,7 +24,7 @@ export function LoginForm() {
 
       <div className="space-y-1.5">
         <label htmlFor="email" className="text-sm font-medium text-text">
-          Correo electrónico
+          {t("email")}
         </label>
         <input
           id="email"
@@ -30,14 +32,14 @@ export function LoginForm() {
           type="email"
           required
           autoComplete="email"
-          placeholder="tu@empresa.com"
+          placeholder={t("emailPlaceholder")}
           className="w-full rounded-md border border-border bg-surface px-3 py-2 text-sm placeholder:text-text-subtle focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand"
         />
       </div>
 
       <div className="space-y-1.5">
         <label htmlFor="password" className="text-sm font-medium text-text">
-          Contraseña
+          {t("password")}
         </label>
         <input
           id="password"
@@ -54,7 +56,7 @@ export function LoginForm() {
         disabled={isPending}
         className="w-full rounded-md bg-brand text-brand-fg px-3 py-2 text-sm font-medium hover:bg-brand-hover transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        {isPending ? "Entrando…" : "Entrar"}
+        {isPending ? t("submitting") : t("submit")}
       </button>
     </form>
   );

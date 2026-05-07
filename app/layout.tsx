@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import "./globals.css";
 
 const plexSans = IBM_Plex_Sans({
@@ -16,20 +18,32 @@ const plexMono = IBM_Plex_Mono({
   variable: "--font-plex-mono",
 });
 
-export const metadata: Metadata = {
-  title: "VulnRadar EU — Gestión de vulnerabilidades NIS2",
-  description:
-    "Plataforma europea de gestión de vulnerabilidades y cumplimiento NIS2 para PyMEs.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("metadata");
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html lang="es" className={`${plexSans.variable} ${plexMono.variable}`}>
-      <body className="font-sans bg-bg text-text antialiased">{children}</body>
+    <html
+      lang={locale}
+      className={`${plexSans.variable} ${plexMono.variable}`}
+    >
+      <body className="font-sans bg-bg text-text antialiased">
+        <NextIntlClientProvider messages={messages}>
+          {children}
+        </NextIntlClientProvider>
+      </body>
     </html>
   );
 }
