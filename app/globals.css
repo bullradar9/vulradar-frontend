@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Neutros (cálidos) */
+  --bg: 250 250 247;
+  --surface: 255 255 255;
+  --surface-muted: 244 242 236;
+  --border: 231 229 223;
+  --border-strong: 214 211 204;
+  --text: 26 26 23;
+  --text-muted: 92 90 82;
+  --text-subtle: 142 139 130;
+
+  /* Marca */
+  --brand: 31 77 74;
+  --brand-hover: 22 58 55;
+  --brand-fg: 255 255 255;
+
+  /* Severidades */
+  --severity-critical: 176 36 31;
+  --severity-high: 194 107 26;
+  --severity-medium: 181 148 18;
+  --severity-low: 79 109 140;
+
+  /* Severidades — fondos */
+  --severity-critical-bg: 251 234 232;
+  --severity-high-bg: 251 240 227;
+  --severity-medium-bg: 250 245 221;
+  --severity-low-bg: 234 240 246;
+
+  /* Estados de alerta */
+  --state-patched: 63 110 78;
+  --state-acknowledged: 142 108 42;
+  --state-ignored: 142 139 130;
+}
+
+/* Dark mode preparado pero no activado.
+   Cuando se decida activar, descomentar el bloque y añadir
+   darkMode: 'class' o 'media' a tailwind.config.ts. */
+
+html,
+body {
+  background-color: rgb(var(--bg));
+  color: rgb(var(--text));
+}
+
+body {
+  font-family: var(--font-plex-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code,
+pre,
+kbd,
+samp {
+  font-family: var(--font-plex-mono), ui-monospace, SFMono-Regular, Menlo,
+    Consolas, monospace;
+}
+
+::selection {
+  background-color: rgb(var(--brand) / 0.2);
+}
