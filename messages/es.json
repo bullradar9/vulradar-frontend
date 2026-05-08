@@ -17,6 +17,16 @@
   "header": {
     "current": "Dashboard"
   },
+  "agent": {
+    "download": {
+      "idle": "Descargar agente",
+      "addDevice": "Añadir equipo",
+      "loading": "Generando…",
+      "success": "Descargado",
+      "errorGeneric": "No se pudo generar la descarga. Inténtalo de nuevo."
+    },
+    "smartscreen": "Windows mostrará un aviso de seguridad la primera vez. Pulsa \"Más información\" → \"Ejecutar de todas formas\". El binario aún no está firmado digitalmente."
+  },
   "dashboard": {
     "title": "Dashboard",
     "subtitle": "Estado de tu inventario y alertas activas.",
@@ -60,7 +70,6 @@
     "empty": {
       "noDevicesTitle": "Aún no has instalado el agente",
       "noDevicesDescription": "Descarga el agente, instálalo en un equipo Windows y verás aquí las alertas en cuanto se complete el primer scan (~2 min).",
-      "noDevicesCta": "Descargar agente",
       "noAlertsTitle": "Sin alertas abiertas",
       "noAlertsDescription": "Esto puede significar que tu equipo está actualizado o que el primer scan aún no se ha completado."
     },
@@ -89,8 +98,7 @@
     },
     "empty": {
       "title": "Aún no has instalado el agente",
-      "description": "Descarga el agente, instálalo en un equipo Windows y aparecerá aquí en cuanto se complete el primer scan.",
-      "cta": "Descargar agente"
+      "description": "Descarga el agente, instálalo en un equipo Windows y aparecerá aquí en cuanto se complete el primer scan."
     },
     "detail": {
       "title": "Detalle del equipo",

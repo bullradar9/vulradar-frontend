@@ -17,6 +17,16 @@
   "header": {
     "current": "Dashboard"
   },
+  "agent": {
+    "download": {
+      "idle": "Download agent",
+      "addDevice": "Add device",
+      "loading": "Generating…",
+      "success": "Downloaded",
+      "errorGeneric": "Couldn't generate the download. Try again."
+    },
+    "smartscreen": "Windows will show a security warning the first time. Click \"More info\" → \"Run anyway\". The binary is not yet digitally signed."
+  },
   "dashboard": {
     "title": "Dashboard",
     "subtitle": "Status of your inventory and active alerts.",
@@ -60,7 +70,6 @@
     "empty": {
       "noDevicesTitle": "You haven't installed the agent yet",
       "noDevicesDescription": "Download the agent, install it on a Windows machine, and you'll see alerts here as soon as the first scan completes (~2 min).",
-      "noDevicesCta": "Download agent",
       "noAlertsTitle": "No open alerts",
       "noAlertsDescription": "This could mean your device is up to date, or that the first scan hasn't completed yet."
     },
@@ -89,8 +98,7 @@
     },
     "empty": {
       "title": "You haven't installed the agent yet",
-      "description": "Download the agent, install it on a Windows machine, and it'll show up here as soon as the first scan completes.",
-      "cta": "Download agent"
+      "description": "Download the agent, install it on a Windows machine, and it'll show up here as soon as the first scan completes."
     },
     "detail": {
       "title": "Device detail",

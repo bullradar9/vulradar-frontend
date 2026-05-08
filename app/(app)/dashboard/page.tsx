@@ -3,6 +3,8 @@ import { ShieldCheck, Inbox } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 
 import { createClient } from "@/lib/supabase/server";
+import { DownloadAgentButton } from "@/components/DownloadAgentButton";
+import { SmartScreenNotice } from "@/components/SmartScreenNotice";
 import {
   countAlertsOpen,
   countByAlertType,
@@ -48,7 +50,6 @@ type DeviceWithAlertCount = TopDevice & { open_alert_count: number };
 
 export default async function DashboardPage() {
   const t = await getTranslations("dashboard");
-  const tCommon = await getTranslations("common");
   const locale = await getLocale();
   const supabase = await createClient();
 
@@ -138,7 +139,7 @@ export default async function DashboardPage() {
       </section>
 
       {deviceCount === 0 ? (
-        <NoDevicesEmpty t={t} comingSoonLabel={tCommon("comingSoon")} />
+        <NoDevicesEmpty t={t} />
       ) : alertsOpen === 0 ? (
         <NoAlertsBanner t={t} />
       ) : (
@@ -404,13 +405,7 @@ function alertDetail(alert: TopAlert, t: DashboardT): ReactNode {
 // Empty states
 // =============================================================
 
-function NoDevicesEmpty({
-  t,
-  comingSoonLabel,
-}: {
-  t: DashboardT;
-  comingSoonLabel: string;
-}) {
+function NoDevicesEmpty({ t }: { t: DashboardT }) {
   return (
     <Card>
       <EmptyState
@@ -418,17 +413,9 @@ function NoDevicesEmpty({
         title={t("empty.noDevicesTitle")}
         description={t("empty.noDevicesDescription")}
         action={
-          <div className="flex flex-col items-center gap-1.5">
-            <button
-              type="button"
-              disabled
-              className="rounded-md bg-brand text-brand-fg px-4 py-2 text-sm font-medium opacity-60 cursor-not-allowed"
-            >
-              {t("empty.noDevicesCta")}
-            </button>
-            <span className="text-xs text-text-subtle lowercase">
-              {comingSoonLabel}
-            </span>
+          <div className="flex flex-col items-center">
+            <DownloadAgentButton variant="large" />
+            <SmartScreenNotice />
           </div>
         }
       />

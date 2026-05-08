@@ -9,11 +9,12 @@ import {
 } from "@/lib/queries/devices";
 import { Card } from "@/components/ui/Card";
 import { EmptyState } from "@/components/ui/EmptyState";
+import { DownloadAgentButton } from "@/components/DownloadAgentButton";
+import { SmartScreenNotice } from "@/components/SmartScreenNotice";
 import { DeviceTable } from "./DeviceTable";
 
 export default async function DevicesPage() {
   const t = await getTranslations("devices");
-  const tCommon = await getTranslations("common");
   const supabase = await createClient();
 
   const [devices, alertRefs] = await Promise.all([
@@ -39,17 +40,9 @@ export default async function DevicesPage() {
             title={t("empty.title")}
             description={t("empty.description")}
             action={
-              <div className="flex flex-col items-center gap-1.5">
-                <button
-                  type="button"
-                  disabled
-                  className="rounded-md bg-brand text-brand-fg px-4 py-2 text-sm font-medium opacity-60 cursor-not-allowed"
-                >
-                  {t("empty.cta")}
-                </button>
-                <span className="text-xs text-text-subtle lowercase">
-                  {tCommon("comingSoon")}
-                </span>
+              <div className="flex flex-col items-center">
+                <DownloadAgentButton variant="large" />
+                <SmartScreenNotice />
               </div>
             }
           />
@@ -60,11 +53,18 @@ export default async function DevicesPage() {
 
   return (
     <div className="space-y-6 max-w-7xl">
-      <header>
-        <h1 className="text-2xl font-medium tracking-tight">{t("title")}</h1>
-        <p className="mt-1 text-sm text-text-muted">
-          {t("subtitle", { count: rows.length })}
-        </p>
+      <header className="flex items-start justify-between gap-4">
+        <div className="min-w-0">
+          <h1 className="text-2xl font-medium tracking-tight">{t("title")}</h1>
+          <p className="mt-1 text-sm text-text-muted">
+            {t("subtitle", { count: rows.length })}
+          </p>
+        </div>
+        <div className="shrink-0">
+          <SmartScreenNotice>
+            <DownloadAgentButton labelKey="addDevice" />
+          </SmartScreenNotice>
+        </div>
       </header>
 
       <DeviceTable rows={rows} />
