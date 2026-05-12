@@ -63,3 +63,50 @@ samp {
 ::selection {
   background-color: rgb(var(--brand) / 0.2);
 }
+
+/* =============================================================
+   Reglas de impresión — solo aplican a /report y otros documentos
+   que quieran exportarse a PDF. El resto de pantallas no imprime.
+   ============================================================= */
+@media print {
+  @page {
+    size: A4;
+    margin: 16mm 14mm;
+  }
+
+  html,
+  body {
+    background: white !important;
+    color: black !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Permitir que el documento ocupe toda la página */
+  .report-root,
+  .report-doc {
+    background: white !important;
+    box-shadow: none !important;
+    border: 0 !important;
+    max-width: none !important;
+  }
+
+  /* Cada sección principal del informe en página propia */
+  .report-cover {
+    break-after: page;
+    min-height: auto;
+  }
+
+  .report-section-heading {
+    break-after: avoid;
+  }
+
+  .report-table thead {
+    display: table-header-group;
+  }
+  .report-table tr,
+  .report-table td,
+  .report-table th {
+    break-inside: avoid;
+  }
+}

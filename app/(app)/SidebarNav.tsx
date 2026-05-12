@@ -17,7 +17,7 @@ const ITEMS: NavItem[] = [
   { labelKey: "dashboard", href: "/dashboard", icon: Home },
   { labelKey: "devices", href: "/devices", icon: Monitor },
   { labelKey: "alerts", href: null, icon: AlertTriangle },
-  { labelKey: "nis2Report", href: null, icon: FileText },
+  { labelKey: "nis2Report", href: "/report", icon: FileText },
 ];
 
 export function SidebarNav() {

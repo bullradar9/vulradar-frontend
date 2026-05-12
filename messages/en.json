@@ -105,6 +105,160 @@
       "placeholder": "Detail view under construction. For now, just shows the ID."
     }
   },
+  "report": {
+    "title": "NIS2 Report",
+    "subtitle": "Evidence document for NIS2 Article 21 audit.",
+    "exportPdf": "Export as PDF",
+    "exportHint": "Click the button to open the print dialog and save as PDF.",
+    "cover": {
+      "kicker": "VulnRadar",
+      "title": "Vulnerability management report",
+      "subtitle": "Technical evidence for NIS2 Article 21",
+      "tenantLabel": "Client",
+      "periodLabel": "Report date",
+      "reference": "Directive (EU) 2022/2555 · Article 21",
+      "processedIn": "Data processed in the European Union (Frankfurt)"
+    },
+    "summary": {
+      "heading": "Executive summary",
+      "devices": "Devices",
+      "criticalOpen": "Critical",
+      "kevOpen": "KEV exploited",
+      "eolOpen": "End-of-life software",
+      "statusEmpty": "No devices are being monitored. Install the agent to start generating evidence.",
+      "statusClean": "No open alerts detected across the fleet. Keep patches up to date to maintain this state.",
+      "statusKev": "The fleet has {kev} actively exploited (KEV) vulnerability(ies) and {critical} critical alert(s). Immediate attention required.",
+      "statusCritical": "The fleet has {critical} open critical alert(s). Prioritize remediation.",
+      "statusOk": "{total} open alert(s), none critical. Review on the usual cadence."
+    },
+    "inventory": {
+      "heading": "Device inventory",
+      "empty": "No devices monitored.",
+      "table": {
+        "device": "Device",
+        "os": "Operating system",
+        "agent": "Agent version",
+        "lastSeen": "Last scan",
+        "open": "Open",
+        "crit": "Crit.",
+        "kev": "KEV"
+      },
+      "never": "Never"
+    },
+    "topAlerts": {
+      "heading": "Critical and KEV alerts (top 20)",
+      "intro": "Listing sorted by priority_score. Items tagged KEV are listed in the CISA Known Exploited Vulnerabilities catalog.",
+      "empty": "No open alerts at this time.",
+      "kevBadge": "KEV",
+      "priorityLabel": "Priority",
+      "labels": {
+        "cveId": "CVE",
+        "version": "Installed version",
+        "latest": "Latest stable",
+        "eolDate": "End of support"
+      }
+    },
+    "eol": {
+      "heading": "End-of-life software (EOL)",
+      "intro": "Software detected in the fleet whose vendor has ended security support.",
+      "empty": "No end-of-life software detected.",
+      "table": {
+        "software": "Software",
+        "version": "Installed version",
+        "latest": "Latest version",
+        "eolDate": "End of support",
+        "devices": "Devices"
+      },
+      "noDate": "No date"
+    },
+    "remediation": {
+      "heading": "Remediation metrics",
+      "intro": "Operational effectiveness indicator required by Article 21.2.f (assessment of the effectiveness of measures). This version does not differentiate internal from external assets: all monitored devices are aggregated into a single figure.",
+      "metricTitle": "Mean time to resolve critical alerts",
+      "metricDescription": "Mean between detection and status='patched' for alerts with priority_score ≥ 9.0.",
+      "daysUnit": "days",
+      "sampleLabel": "Sample",
+      "sampleValue": "{count, plural, one {# resolved alert} other {# resolved alerts}}",
+      "windowLabel": "Period covered",
+      "windowValue": "last {days} days ({start} → {end})",
+      "insufficientTitle": "Insufficient data",
+      "insufficientBody": "At least {min} resolved critical alerts in the last {days} days are required to compute a representative mean.",
+      "insufficientSample": "Current sample: {count, plural, one {# resolved alert} other {# resolved alerts}}.",
+      "listHeading": "Resolved vulnerabilities",
+      "table": {
+        "software": "Software",
+        "version": "Version",
+        "cve": "CVE",
+        "score": "CVSS",
+        "resolved": "Resolved",
+        "resolutionDays": "Days"
+      },
+      "kevBadge": "KEV"
+    },
+    "nis2": {
+      "heading": "NIS2 Article 21 compliance",
+      "intro": "Of the 10 measures required by Art. 21.2 of Directive (EU) 2022/2555, this report documents the technical compliance of those covered by VulnRadar.",
+      "table": {
+        "letter": "#",
+        "measure": "Measure",
+        "status": "Status",
+        "justification": "Justification"
+      },
+      "status": {
+        "covered": "Covered",
+        "partial": "Partial evidence",
+        "not_applicable": "Not applicable"
+      },
+      "footer": "This report documents compliance with Article 21.2.e (vulnerability handling and disclosure). Of the 10 required measures, VulnRadar fully covers {covered}, provides partial evidence on {partial}, and does not cover the remaining {notApplicable}, which require additional organizational controls outside the scope of this tool.",
+      "measures": {
+        "riskAnalysis": {
+          "title": "Risk analysis and information system security policies",
+          "justification": "The device inventory and alert listing feed the technical software risk analysis. Does not cover organizational analysis or policy documentation."
+        },
+        "incidentHandling": {
+          "title": "Incident handling (prevention, detection and response)",
+          "justification": "Detects CVE, KEV, EOL and OUTDATED across the fleet. Does not cover incident response, runbooks, or CSIRT notification."
+        },
+        "businessContinuity": {
+          "title": "Business continuity, backup management and disaster recovery",
+          "justification": "Out of scope for this product."
+        },
+        "supplyChain": {
+          "title": "Supply chain security",
+          "justification": "Visibility over software installed on each device (input for dependency auditing). Does not cover contractual evaluation of providers."
+        },
+        "vulnerabilityHandling": {
+          "title": "Security in acquisition, development and maintenance of networks and systems, including vulnerability handling and disclosure",
+          "justification": "Continuous detection against NVD and CISA KEV, prioritization by CVSS and priority_score, identification of EOL and outdated software. This is the main measure covered by the product."
+        },
+        "effectiveness": {
+          "title": "Policies and procedures to assess the effectiveness of risk management measures",
+          "justification": "The history of open vs closed alerts and the KPIs provide technical effectiveness metrics for measure (e). Does not evaluate other measures."
+        },
+        "cyberHygiene": {
+          "title": "Basic cyber hygiene practices and cybersecurity training",
+          "justification": "Out of scope for this product."
+        },
+        "cryptography": {
+          "title": "Policies and procedures regarding the use of cryptography and, where appropriate, encryption",
+          "justification": "Out of scope for this product."
+        },
+        "humanResources": {
+          "title": "Human resources security, access control policies and asset management",
+          "justification": "Covers asset management through the device inventory. Does not cover human resources or access control."
+        },
+        "authentication": {
+          "title": "Multi-factor or continuous authentication, secure communications and secure emergency communication systems",
+          "justification": "Out of scope for this product."
+        }
+      }
+    },
+    "footer": {
+      "support": "Support: support@vulnradar.eu",
+      "processedIn": "Data processed in the European Union (Frankfurt)",
+      "generatedBy": "Generated by VulnRadar"
+    }
+  },
   "login": {
     "title": "Sign in to your account",
     "subtitle": "Enter your credentials to access the panel.",

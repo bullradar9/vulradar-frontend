@@ -105,6 +105,160 @@
       "placeholder": "Vista detallada en construcción. Por ahora solo muestra el ID."
     }
   },
+  "report": {
+    "title": "Informe NIS2",
+    "subtitle": "Documento de evidencia para auditoría del Artículo 21 NIS2.",
+    "exportPdf": "Exportar a PDF",
+    "exportHint": "Pulsa el botón para abrir el cuadro de diálogo de impresión y guardar como PDF.",
+    "cover": {
+      "kicker": "VulnRadar",
+      "title": "Informe de gestión de vulnerabilidades",
+      "subtitle": "Evidencia técnica para el Artículo 21 NIS2",
+      "tenantLabel": "Cliente",
+      "periodLabel": "Fecha del informe",
+      "reference": "Directiva (UE) 2022/2555 · Artículo 21",
+      "processedIn": "Datos procesados en la Unión Europea (Frankfurt)"
+    },
+    "summary": {
+      "heading": "Resumen ejecutivo",
+      "devices": "Equipos",
+      "criticalOpen": "Críticas",
+      "kevOpen": "KEV explotadas",
+      "eolOpen": "Software sin soporte",
+      "statusEmpty": "No hay equipos monitorizados. Instala el agente para empezar a generar evidencia.",
+      "statusClean": "No se detectan alertas abiertas en el parque. Mantén las actualizaciones para conservar este estado.",
+      "statusKev": "El parque presenta {kev} vulnerabilidad(es) activamente explotada(s) (KEV) y {critical} alerta(s) crítica(s). Requiere atención inmediata.",
+      "statusCritical": "El parque presenta {critical} alerta(s) crítica(s) abierta(s). Prioriza la remediación.",
+      "statusOk": "{total} alerta(s) abierta(s) sin severidad crítica. Revisa según calendario habitual."
+    },
+    "inventory": {
+      "heading": "Inventario de equipos",
+      "empty": "No hay equipos monitorizados.",
+      "table": {
+        "device": "Equipo",
+        "os": "Sistema operativo",
+        "agent": "Versión agente",
+        "lastSeen": "Último scan",
+        "open": "Abiertas",
+        "crit": "Crít.",
+        "kev": "KEV"
+      },
+      "never": "Nunca"
+    },
+    "topAlerts": {
+      "heading": "Alertas críticas y KEV (top 20)",
+      "intro": "Listado priorizado por priority_score. Las marcadas como KEV están en el catálogo CISA Known Exploited Vulnerabilities.",
+      "empty": "No hay alertas abiertas en este momento.",
+      "kevBadge": "KEV",
+      "priorityLabel": "Prioridad",
+      "labels": {
+        "cveId": "CVE",
+        "version": "Versión instalada",
+        "latest": "Última estable",
+        "eolDate": "Fin de soporte"
+      }
+    },
+    "eol": {
+      "heading": "Software sin soporte (EOL)",
+      "intro": "Software detectado en el parque cuyo fabricante ha terminado el soporte de seguridad.",
+      "empty": "No se ha detectado software sin soporte.",
+      "table": {
+        "software": "Software",
+        "version": "Versión instalada",
+        "latest": "Última versión",
+        "eolDate": "Fin de soporte",
+        "devices": "Equipos"
+      },
+      "noDate": "Sin fecha"
+    },
+    "remediation": {
+      "heading": "Métricas de remediación",
+      "intro": "Indicador de eficacia operativa requerido por el Artículo 21.2.f (evaluación de la eficacia de las medidas). Esta versión no diferencia activos internos de externos: todos los equipos monitorizados se agregan en una única cifra.",
+      "metricTitle": "Tiempo medio de resolución de alertas críticas",
+      "metricDescription": "Media entre detección y status='patched' para alertas con priority_score ≥ 9,0.",
+      "daysUnit": "días",
+      "sampleLabel": "Muestra",
+      "sampleValue": "{count, plural, one {# alerta resuelta} other {# alertas resueltas}}",
+      "windowLabel": "Periodo cubierto",
+      "windowValue": "últimos {days} días ({start} → {end})",
+      "insufficientTitle": "Sin datos suficientes",
+      "insufficientBody": "Se requieren al menos {min} alertas críticas resueltas en los últimos {days} días para calcular una media representativa.",
+      "insufficientSample": "Muestra actual: {count, plural, one {# alerta resuelta} other {# alertas resueltas}}.",
+      "listHeading": "Vulnerabilidades resueltas",
+      "table": {
+        "software": "Software",
+        "version": "Versión",
+        "cve": "CVE",
+        "score": "CVSS",
+        "resolved": "Resuelta",
+        "resolutionDays": "Días"
+      },
+      "kevBadge": "KEV"
+    },
+    "nis2": {
+      "heading": "Cumplimiento Artículo 21 NIS2",
+      "intro": "De las 10 medidas exigidas por el Art. 21.2 de la Directiva (UE) 2022/2555, este informe documenta el cumplimiento técnico de las que VulnRadar cubre.",
+      "table": {
+        "letter": "#",
+        "measure": "Medida",
+        "status": "Estado",
+        "justification": "Justificación"
+      },
+      "status": {
+        "covered": "Cubierto",
+        "partial": "Evidencia parcial",
+        "not_applicable": "No aplica"
+      },
+      "footer": "Este informe documenta el cumplimiento del Artículo 21.2.e (gestión y divulgación de vulnerabilidades). De las 10 medidas exigidas, VulnRadar cubre {covered} íntegramente, aporta evidencia parcial en {partial} y no cubre las {notApplicable} restantes, que requieren controles organizativos adicionales fuera del alcance de esta herramienta.",
+      "measures": {
+        "riskAnalysis": {
+          "title": "Análisis de riesgos y políticas de seguridad de los sistemas de información",
+          "justification": "El inventario de equipos y el listado de alertas alimentan el análisis técnico de riesgo de software. No cubre análisis organizativo ni política documental."
+        },
+        "incidentHandling": {
+          "title": "Gestión de incidentes (prevención, detección y respuesta)",
+          "justification": "Detecta CVE, KEV, EOL y OUTDATED en el parque. No cubre respuesta a incidentes, runbooks ni notificación a CSIRT."
+        },
+        "businessContinuity": {
+          "title": "Continuidad del negocio, gestión de copias de seguridad y recuperación ante desastres",
+          "justification": "Fuera del alcance del producto."
+        },
+        "supplyChain": {
+          "title": "Seguridad de la cadena de suministro",
+          "justification": "Visibilidad del software instalado en cada equipo (insumo para auditar dependencias). No cubre evaluación contractual de proveedores."
+        },
+        "vulnerabilityHandling": {
+          "title": "Seguridad en adquisición, desarrollo y mantenimiento de redes y sistemas, incluida la gestión y divulgación de vulnerabilidades",
+          "justification": "Detección continua contra NVD y CISA KEV, priorización por CVSS y priority_score, identificación de software EOL y desactualizado. Es la medida principal cubierta por el producto."
+        },
+        "effectiveness": {
+          "title": "Políticas y procedimientos para evaluar la eficacia de las medidas de gestión de riesgos",
+          "justification": "El histórico de alertas abiertas frente a cerradas y los KPIs son métrica de eficacia técnica de la medida (e). No evalúa el resto de medidas."
+        },
+        "cyberHygiene": {
+          "title": "Prácticas básicas de ciberhigiene y formación en ciberseguridad",
+          "justification": "Fuera del alcance del producto."
+        },
+        "cryptography": {
+          "title": "Políticas y procedimientos de uso de criptografía y, en su caso, cifrado",
+          "justification": "Fuera del alcance del producto."
+        },
+        "humanResources": {
+          "title": "Seguridad de los recursos humanos, políticas de control de acceso y gestión de activos",
+          "justification": "Cubre la parte de gestión de activos mediante el inventario de equipos. No cubre RRHH ni control de acceso."
+        },
+        "authentication": {
+          "title": "Autenticación multifactor o continua, comunicaciones seguras y sistemas seguros de comunicación de emergencia",
+          "justification": "Fuera del alcance del producto."
+        }
+      }
+    },
+    "footer": {
+      "support": "Soporte: support@vulnradar.eu",
+      "processedIn": "Datos procesados en la Unión Europea (Frankfurt)",
+      "generatedBy": "Generado por VulnRadar"
+    }
+  },
   "login": {
     "title": "Acceder a tu cuenta",
     "subtitle": "Introduce tus credenciales para entrar al panel.",

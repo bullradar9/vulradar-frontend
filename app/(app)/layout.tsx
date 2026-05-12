@@ -28,8 +28,8 @@ export default async function AppLayout({
   const initial = email.charAt(0).toUpperCase() || "?";
 
   return (
-    <div className="flex h-screen bg-bg">
-      <aside className="w-64 shrink-0 border-r border-border bg-surface flex flex-col">
+    <div className="flex h-screen bg-bg print:h-auto print:block">
+      <aside className="w-64 shrink-0 border-r border-border bg-surface flex flex-col print:hidden">
         <div className="h-14 px-4 flex items-center gap-2 border-b border-border">
           <ShieldCheck className="h-5 w-5 text-brand" strokeWidth={1.75} />
           <span className="font-semibold tracking-tight">
@@ -48,7 +48,7 @@ export default async function AppLayout({
       </aside>
 
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="h-14 shrink-0 border-b border-border bg-surface px-6 flex items-center justify-between">
+        <header className="h-14 shrink-0 border-b border-border bg-surface px-6 flex items-center justify-between print:hidden">
           <TopbarBreadcrumb />
           <div className="flex items-center gap-4">
             <LocaleSwitcher />
@@ -73,7 +73,9 @@ export default async function AppLayout({
           </div>
         </header>
 
-        <main className="flex-1 overflow-auto p-6">{children}</main>
+        <main className="flex-1 overflow-auto p-6 print:p-0 print:overflow-visible">
+          {children}
+        </main>
       </div>
     </div>
   );

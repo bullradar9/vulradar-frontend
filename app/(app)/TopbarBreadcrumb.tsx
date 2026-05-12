@@ -10,6 +10,7 @@ export function TopbarBreadcrumb() {
   let label = "";
   if (pathname.startsWith("/devices")) label = tNav("devices");
   else if (pathname.startsWith("/dashboard")) label = tNav("dashboard");
+  else if (pathname.startsWith("/report")) label = tNav("nis2Report");
 
   return <div className="text-sm text-text-muted">{label}</div>;
 }

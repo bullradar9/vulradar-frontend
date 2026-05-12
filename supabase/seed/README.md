@@ -43,6 +43,36 @@ mcp__supabase__apply_migration(name="dev_seed_devices_alerts", query=<contenido 
 
 Software canónicos alineados con la tabla curada del agente (`docs/tech/agent.md`) y con datos reales pre-existentes en el tenant (`nodejs`, `acrobat-reader`, etc.).
 
+## `0002_dev_patched_critical_history.sql` — historial de alertas resueltas
+
+Datos **estrictamente sintéticos** para alimentar la métrica *"Tiempo medio de resolución de alertas críticas"* del Informe NIS2 (Artículo 21.2.f).
+
+- Crea **1 device adicional** llamado `synthetic-patched-history` (marca obvia de "no es real") + **1 scan** + **25 alertas** con `status='patched'` y `priority_score >= 9.0`.
+- Las alertas se reparten en los últimos 90 días con tiempos de resolución variados: 8 rápidas (1-3 días), 10 medias (4-10 días), 7 lentas (15-30 días). Media teórica ≈ 9,5 días.
+- Mezcla realista de software (chrome, firefox, office, dotnet).
+- **No modifica schema**. La tabla `client_alerts` no tiene un flag `is_synthetic`, y este seed *no lo añade*. La marca de "sintético" es exclusivamente:
+  1. Comentario al inicio del SQL.
+  2. Esta sección del README.
+  3. El `device_name = 'synthetic-patched-history'`, que permite filtrar y borrar a mano si hace falta.
+
+Para resetear sólo este seed:
+
+```sql
+DELETE FROM public.client_alerts WHERE device_id IN (
+  SELECT id FROM public.devices
+  WHERE tenant_id = '7c66a774-2839-4793-8e10-bfa75bd1013a'
+    AND device_name = 'synthetic-patched-history'
+);
+DELETE FROM public.scans WHERE device_id IN (
+  SELECT id FROM public.devices
+  WHERE tenant_id = '7c66a774-2839-4793-8e10-bfa75bd1013a'
+    AND device_name = 'synthetic-patched-history'
+);
+DELETE FROM public.devices
+WHERE tenant_id = '7c66a774-2839-4793-8e10-bfa75bd1013a'
+  AND device_name = 'synthetic-patched-history';
+```
+
 ## Verificación post-seed
 
 ```sql
